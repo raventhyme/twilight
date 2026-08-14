@@ -80,6 +80,7 @@ mod tests {
     );
     const_assert_eq!(ChannelFlags::PINNED.bits(), 1 << 1);
     const_assert_eq!(ChannelFlags::REQUIRE_TAG.bits(), 1 << 4);
+    const_assert_eq!(ChannelFlags::CHANNEL_OBFUSCATED.bits(), 1 << 17);
 
     #[test]
     fn serde() {
