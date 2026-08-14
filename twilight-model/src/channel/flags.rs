@@ -13,6 +13,12 @@ bitflags! {
         const REQUIRE_TAG = 1 << 4;
         /// Hide the download options for this post in a media channel.
         const HIDE_MEDIA_DOWNLOAD_OPTIONS = 1 << 15;
+        /// This channel's metadata has been obfuscated because the current user
+        /// cannot view it.
+        ///
+        /// Only ever set on channels received over the Gateway; the HTTP API
+        /// never sets this flag.
+        const CHANNEL_OBFUSCATED = 1 << 17;
     }
 }
 
