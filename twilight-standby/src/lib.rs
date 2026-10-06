@@ -1097,6 +1097,7 @@ mod tests {
                 avatar_decoration_data: None,
                 banner: None,
                 bot: false,
+                collectibles: None,
                 discriminator: 1,
                 email: None,
                 flags: None,
@@ -1233,6 +1234,7 @@ mod tests {
                 avatar_decoration_data: None,
                 banner: None,
                 bot: false,
+                collectibles: None,
                 discriminator: 1,
                 email: None,
                 flags: None,
@@ -1401,6 +1403,7 @@ mod tests {
                 avatar: None,
                 banner: None,
                 bot: false,
+                collectibles: None,
                 discriminator: 1,
                 email: None,
                 id: Id::new(1),
@@ -1415,7 +1418,7 @@ mod tests {
             },
             version: 6,
         };
-        let event = Event::Ready(ready);
+        let event = Event::Ready(Box::new(ready));
 
         let standby = Standby::new();
         let wait = standby.wait_for_event(|event: &Event| match event {

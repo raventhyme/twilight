@@ -62,7 +62,7 @@ pub enum DispatchEvent {
     ReactionRemove(Box<ReactionRemove>),
     ReactionRemoveAll(ReactionRemoveAll),
     ReactionRemoveEmoji(ReactionRemoveEmoji),
-    Ready(Ready),
+    Ready(Box<Ready>),
     Resumed,
     RoleCreate(RoleCreate),
     RoleDelete(RoleDelete),
@@ -394,7 +394,7 @@ impl<'de> DeserializeSeed<'de> for DispatchEventWithTypeDeserializer<'_> {
                 DispatchEvent::PresenceUpdate(Box::new(PresenceUpdate::deserialize(deserializer)?))
             }
             "RATE_LIMITED" => DispatchEvent::RateLimited(RateLimited::deserialize(deserializer)?),
-            "READY" => DispatchEvent::Ready(Ready::deserialize(deserializer)?),
+            "READY" => DispatchEvent::Ready(Box::new(Ready::deserialize(deserializer)?)),
             "RESUMED" => {
                 deserializer.deserialize_ignored_any(IgnoredAny)?;
 

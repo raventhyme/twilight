@@ -235,6 +235,7 @@ pub fn current_user(id: u64) -> CurrentUser {
         avatar: None,
         banner: None,
         bot: true,
+        collectibles: None,
         discriminator: 9876,
         email: None,
         id: Id::new(id),

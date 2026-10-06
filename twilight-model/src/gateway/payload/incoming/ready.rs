@@ -56,6 +56,7 @@ mod tests {
                 avatar: None,
                 banner: None,
                 bot: false,
+                collectibles: None,
                 discriminator: 1212,
                 email: None,
                 flags: None,

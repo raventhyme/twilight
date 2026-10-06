@@ -1,4 +1,4 @@
-use super::{DiscriminatorDisplay, PremiumType, UserFlags};
+use super::{DiscriminatorDisplay, PremiumType, UserFlags, collectibles::Collectibles};
 use crate::{
     id::{Id, marker::UserMarker},
     util::image_hash::ImageHash,
@@ -22,6 +22,9 @@ pub struct CurrentUser {
     /// Whether the user belongs to an OAuth2 application.
     #[serde(default)]
     pub bot: bool,
+    /// Collectibles used by the user.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub collectibles: Option<Collectibles>,
     /// Discriminator used to differentiate people with the same username.
     ///
     /// # Formatting
@@ -192,6 +195,7 @@ mod tests {
             avatar: Some(image_hash::AVATAR),
             banner: None,
             bot: true,
+            collectibles: None,
             discriminator: 9999,
             email: None,
             id: Id::new(1),
@@ -222,6 +226,7 @@ mod tests {
             avatar: Some(image_hash::AVATAR),
             banner: Some(image_hash::BANNER),
             bot: true,
+            collectibles: None,
             discriminator: 9999,
             email: Some("test@example.com".to_owned()),
             flags: Some(UserFlags::STAFF),

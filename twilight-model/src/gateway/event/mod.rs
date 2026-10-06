@@ -142,7 +142,7 @@ pub enum Event {
     /// removed.
     ReactionRemoveEmoji(ReactionRemoveEmoji),
     /// A shard is now "ready" and fully connected.
-    Ready(Ready),
+    Ready(Box<Ready>),
     /// A shard has successfully resumed.
     Resumed,
     /// A role was created in a guild.
@@ -521,6 +521,7 @@ mod tests {
     const_assert!(mem::size_of::<PresenceUpdate>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<ReactionAdd>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<ReactionRemove>() > EVENT_THRESHOLD);
+    const_assert!(mem::size_of::<Ready>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<ThreadCreate>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<ThreadMemberUpdate>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<ThreadUpdate>() > EVENT_THRESHOLD);
@@ -544,7 +545,6 @@ mod tests {
     const_assert!(mem::size_of::<MessageDelete>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<MessageDeleteBulk>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<RateLimited>() <= EVENT_THRESHOLD);
-    const_assert!(mem::size_of::<Ready>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<ReactionRemoveAll>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<RoleCreate>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<RoleDelete>() <= EVENT_THRESHOLD);
