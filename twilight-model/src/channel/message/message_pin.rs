@@ -45,6 +45,7 @@ mod tests {
                 avatar_decoration_data: None,
                 banner: None,
                 bot: false,
+                collectibles: None,
                 discriminator: 1,
                 email: None,
                 flags: None,

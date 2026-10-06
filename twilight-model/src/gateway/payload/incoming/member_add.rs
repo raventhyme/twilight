@@ -65,6 +65,7 @@ mod tests {
                     avatar_decoration_data: None,
                     banner: None,
                     bot: false,
+                    collectibles: None,
                     discriminator: 987,
                     global_name: None,
                     name: "ab".to_string(),

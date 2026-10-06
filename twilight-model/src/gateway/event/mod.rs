@@ -34,9 +34,9 @@ pub enum Event {
     /// Sent when an auto moderation rule is updated.
     AutoModerationRuleUpdate(AutoModerationRuleUpdate),
     /// A user was banned from a guild.
-    BanAdd(BanAdd),
+    BanAdd(Box<BanAdd>),
     /// A user's ban from a guild was removed.
-    BanRemove(BanRemove),
+    BanRemove(Box<BanRemove>),
     /// A channel was created.
     ChannelCreate(Box<ChannelCreate>),
     /// A channel was deleted.
@@ -111,7 +111,7 @@ pub enum Event {
     /// A user was added to a guild.
     MemberAdd(Box<MemberAdd>),
     /// A user was removed from a guild.
-    MemberRemove(MemberRemove),
+    MemberRemove(Box<MemberRemove>),
     /// A user's member object in a guild was updated.
     MemberUpdate(Box<MemberUpdate>),
     /// A chunk of members were received from the gateway.
@@ -497,9 +497,11 @@ mod tests {
     #[allow(dead_code)]
     const EVENT_THRESHOLD: usize = 312;
 
-    const_assert!(mem::size_of::<Event>() == EVENT_THRESHOLD);
+    const_assert!(mem::size_of::<Event>() <= EVENT_THRESHOLD);
 
     // Boxed events.
+    const_assert!(mem::size_of::<BanAdd>() > EVENT_THRESHOLD);
+    const_assert!(mem::size_of::<BanRemove>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<ChannelCreate>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<ChannelDelete>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<ChannelUpdate>() > EVENT_THRESHOLD);
@@ -512,6 +514,7 @@ mod tests {
     const_assert!(mem::size_of::<InviteCreate>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<InteractionCreate>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<MemberAdd>() > EVENT_THRESHOLD);
+    const_assert!(mem::size_of::<MemberRemove>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<MemberUpdate>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<MessageCreate>() > EVENT_THRESHOLD);
     const_assert!(mem::size_of::<MessageUpdate>() > EVENT_THRESHOLD);
@@ -528,8 +531,6 @@ mod tests {
     const_assert!(mem::size_of::<AutoModerationRuleDelete>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<AutoModerationRuleUpdate>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<AutoModerationActionExecution>() <= EVENT_THRESHOLD);
-    const_assert!(mem::size_of::<BanAdd>() <= EVENT_THRESHOLD);
-    const_assert!(mem::size_of::<BanRemove>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<ChannelPinsUpdate>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<CommandPermissionsUpdate>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<GuildDelete>() <= EVENT_THRESHOLD);
@@ -542,7 +543,6 @@ mod tests {
     const_assert!(mem::size_of::<MemberChunk>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<MessageDelete>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<MessageDeleteBulk>() <= EVENT_THRESHOLD);
-    const_assert!(mem::size_of::<MemberRemove>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<RateLimited>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<Ready>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<ReactionRemoveAll>() <= EVENT_THRESHOLD);

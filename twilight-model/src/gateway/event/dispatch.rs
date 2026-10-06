@@ -18,8 +18,8 @@ pub enum DispatchEvent {
     AutoModerationRuleCreate(AutoModerationRuleCreate),
     AutoModerationRuleDelete(AutoModerationRuleDelete),
     AutoModerationRuleUpdate(AutoModerationRuleUpdate),
-    BanAdd(BanAdd),
-    BanRemove(BanRemove),
+    BanAdd(Box<BanAdd>),
+    BanRemove(Box<BanRemove>),
     ChannelCreate(Box<ChannelCreate>),
     ChannelDelete(Box<ChannelDelete>),
     ChannelPinsUpdate(ChannelPinsUpdate),
@@ -47,7 +47,7 @@ pub enum DispatchEvent {
     InviteCreate(Box<InviteCreate>),
     InviteDelete(InviteDelete),
     MemberAdd(Box<MemberAdd>),
-    MemberRemove(MemberRemove),
+    MemberRemove(Box<MemberRemove>),
     MemberUpdate(Box<MemberUpdate>),
     MemberChunk(MemberChunk),
     MessageCreate(Box<MessageCreate>),
@@ -286,8 +286,10 @@ impl<'de> DeserializeSeed<'de> for DispatchEventWithTypeDeserializer<'_> {
             "GUILD_AUDIT_LOG_ENTRY_CREATE" => DispatchEvent::GuildAuditLogEntryCreate(Box::new(
                 GuildAuditLogEntryCreate::deserialize(deserializer)?,
             )),
-            "GUILD_BAN_ADD" => DispatchEvent::BanAdd(BanAdd::deserialize(deserializer)?),
-            "GUILD_BAN_REMOVE" => DispatchEvent::BanRemove(BanRemove::deserialize(deserializer)?),
+            "GUILD_BAN_ADD" => DispatchEvent::BanAdd(Box::new(BanAdd::deserialize(deserializer)?)),
+            "GUILD_BAN_REMOVE" => {
+                DispatchEvent::BanRemove(Box::new(BanRemove::deserialize(deserializer)?))
+            }
             "GUILD_CREATE" => {
                 DispatchEvent::GuildCreate(Box::new(GuildCreate::deserialize(deserializer)?))
             }
@@ -320,7 +322,7 @@ impl<'de> DeserializeSeed<'de> for DispatchEventWithTypeDeserializer<'_> {
                 DispatchEvent::MemberAdd(Box::new(MemberAdd::deserialize(deserializer)?))
             }
             "GUILD_MEMBER_REMOVE" => {
-                DispatchEvent::MemberRemove(MemberRemove::deserialize(deserializer)?)
+                DispatchEvent::MemberRemove(Box::new(MemberRemove::deserialize(deserializer)?))
             }
             "GUILD_MEMBER_UPDATE" => {
                 DispatchEvent::MemberUpdate(Box::new(MemberUpdate::deserialize(deserializer)?))

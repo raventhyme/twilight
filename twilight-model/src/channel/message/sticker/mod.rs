@@ -159,6 +159,7 @@ mod tests {
                 avatar_decoration_data: None,
                 banner: None,
                 bot: false,
+                collectibles: None,
                 discriminator: 1,
                 email: Some("address@example.com".to_owned()),
                 flags: Some(UserFlags::PREMIUM_EARLY_SUPPORTER | UserFlags::VERIFIED_DEVELOPER),

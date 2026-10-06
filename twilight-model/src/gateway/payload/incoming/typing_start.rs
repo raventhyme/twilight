@@ -61,6 +61,7 @@ mod tests {
                     avatar_decoration_data: None,
                     banner: None,
                     bot: false,
+                    collectibles: None,
                     discriminator: 1,
                     global_name: Some("test".to_owned()),
                     name: "test".to_owned(),

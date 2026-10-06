@@ -989,7 +989,7 @@ impl<CacheModels: CacheableModels> UpdateCache<CacheModels> for Event {
             Event::InteractionCreate(v) => cache.update(v.deref()),
             Event::MemberAdd(v) => cache.update(v.deref()),
             Event::MemberChunk(v) => cache.update(v),
-            Event::MemberRemove(v) => cache.update(v),
+            Event::MemberRemove(v) => cache.update(v.deref()),
             Event::MemberUpdate(v) => cache.update(v.deref()),
             Event::MessageCreate(v) => cache.update(v.deref()),
             Event::MessageDelete(v) => cache.update(v),

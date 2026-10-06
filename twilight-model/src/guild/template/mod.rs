@@ -186,6 +186,7 @@ mod tests {
                 avatar_decoration_data: None,
                 banner: Some(image_hash::BANNER),
                 bot: false,
+                collectibles: None,
                 email: None,
                 discriminator: 1111,
                 flags: None,

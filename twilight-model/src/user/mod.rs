@@ -1,3 +1,5 @@
+pub mod collectibles;
+
 mod avatar_decoration_data;
 mod connection;
 mod connection_visibility;
@@ -14,6 +16,7 @@ pub use self::{
     primary_guild::PrimaryGuild,
 };
 
+use self::collectibles::Collectibles;
 use crate::{
     id::{Id, marker::UserMarker},
     util::image_hash::ImageHash,
@@ -135,6 +138,9 @@ pub struct User {
     pub banner: Option<ImageHash>,
     #[serde(default)]
     pub bot: bool,
+    /// Collectibles used by the user.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub collectibles: Option<Collectibles>,
     /// Discriminator used to differentiate people with the same username.
     ///
     /// Note: Users that have migrated to the new username system will have a
@@ -386,6 +392,7 @@ mod tests {
             avatar_decoration_data: None,
             banner: Some(image_hash::BANNER),
             bot: false,
+            collectibles: None,
             discriminator: 1,
             email: Some("address@example.com".to_owned()),
             flags: Some(UserFlags::PREMIUM_EARLY_SUPPORTER | UserFlags::VERIFIED_DEVELOPER),
@@ -425,6 +432,7 @@ mod tests {
             avatar_decoration_data: None,
             banner: Some(image_hash::BANNER),
             bot: false,
+            collectibles: None,
             discriminator: 0,
             email: Some("address@example.com".to_owned()),
             flags: Some(UserFlags::PREMIUM_EARLY_SUPPORTER | UserFlags::VERIFIED_DEVELOPER),
@@ -461,6 +469,7 @@ mod tests {
             avatar_decoration_data: None,
             banner: Some(image_hash::BANNER),
             bot: false,
+            collectibles: None,
             discriminator: 1,
             email: Some("address@example.com".to_owned()),
             flags: Some(UserFlags::PREMIUM_EARLY_SUPPORTER | UserFlags::VERIFIED_DEVELOPER),

@@ -67,6 +67,7 @@ mod tests {
                 avatar_decoration: None,
                 avatar_decoration_data: None,
                 banner: None,
+                collectibles: None,
                 name: "Twilight Sparkle".to_string(),
                 id: Id::new(424_242),
                 discriminator: 1234,
