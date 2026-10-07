@@ -6,11 +6,14 @@ use crate::{
     routing::Route,
 };
 use std::future::IntoFuture;
-use twilight_model::guild::invite::Invite;
+use twilight_model::{
+    guild::invite::Invite,
+    id::{Id, marker::GuildMarker},
+};
 
 struct GetInviteFields {
+    guild_scheduled_event_id: Option<Id<GuildMarker>>,
     with_counts: bool,
-    with_expiration: bool,
 }
 
 /// Get information about an invite by its code.
@@ -46,23 +49,26 @@ impl<'a> GetInvite<'a> {
         Self {
             code,
             fields: GetInviteFields {
+                guild_scheduled_event_id: None,
                 with_counts: false,
-                with_expiration: false,
             },
             http,
         }
     }
 
-    /// Whether the invite returned should contain approximate member counts.
-    pub const fn with_counts(mut self) -> Self {
-        self.fields.with_counts = true;
+    /// Guild scheduled event to include with the invite.
+    pub const fn guild_scheduled_event_id(
+        mut self,
+        guild_scheduled_event_id: Id<GuildMarker>,
+    ) -> Self {
+        self.fields.guild_scheduled_event_id = Some(guild_scheduled_event_id);
 
         self
     }
 
-    /// Whether the invite returned should contain its expiration date.
-    pub const fn with_expiration(mut self) -> Self {
-        self.fields.with_expiration = true;
+    /// Whether the invite returned should contain approximate member counts.
+    pub const fn with_counts(mut self) -> Self {
+        self.fields.with_counts = true;
 
         self
     }
@@ -85,10 +91,10 @@ impl IntoFuture for GetInvite<'_> {
 
 impl TryIntoRequest for GetInvite<'_> {
     fn try_into_request(self) -> Result<Request, Error> {
-        Ok(Request::from_route(&Route::GetInviteWithExpiration {
+        Ok(Request::from_route(&Route::GetInvite {
             code: self.code,
+            guild_scheduled_event_id: self.fields.guild_scheduled_event_id.map(Id::get),
             with_counts: self.fields.with_counts,
-            with_expiration: self.fields.with_expiration,
         }))
     }
 }

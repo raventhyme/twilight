@@ -750,10 +750,15 @@ pub enum Route<'a> {
     GetInvite {
         /// The unique invite code.
         code: &'a str,
+        guild_scheduled_event_id: Option<u64>,
         /// Whether to retrieve statistics about the invite.
         with_counts: bool,
     },
     /// Route information to get an invite with an expiration.
+    #[deprecated(
+        since = "0.17.2",
+        note = "with_expiration parameter is no longer supported, use GetInvite variant"
+    )]
     GetInviteWithExpiration {
         /// The unique invite code.
         code: &'a str,
@@ -1238,6 +1243,7 @@ impl Route<'_> {
     /// [`GetGuild`]: Self::GetGuild
     #[allow(clippy::too_many_lines)]
     pub const fn method(&self) -> Method {
+        #[expect(deprecated)]
         match self {
             Self::DeleteAutoModerationRule { .. }
             | Self::DeleteApplicationEmoji { .. }
@@ -1468,6 +1474,7 @@ impl Display for Route<'_> {
     // <https://github.com/rust-lang/rust/issues/10761>
     #[allow(clippy::too_many_lines)]
     fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
+        #[expect(deprecated)]
         match self {
             Route::AddGuildMember { guild_id, user_id }
             | Route::GetMember { guild_id, user_id }
@@ -2459,7 +2466,11 @@ impl Display for Route<'_> {
                 query_formatter.write_opt_param("before", before.as_ref())?;
                 query_formatter.write_opt_param("limit", limit.as_ref())
             }
-            Route::GetInvite { code, with_counts } => {
+            Route::GetInvite {
+                code,
+                guild_scheduled_event_id,
+                with_counts,
+            } => {
                 f.write_str("invites/")?;
                 f.write_str(code)?;
 
@@ -2469,7 +2480,10 @@ impl Display for Route<'_> {
                     query_formatter.write_param("with_counts", &true)?;
                 }
 
-                Ok(())
+                query_formatter.write_opt_param(
+                    "guild_scheduled_event_id",
+                    guild_scheduled_event_id.as_ref(),
+                )
             }
             Route::GetInviteWithExpiration {
                 code,
@@ -2762,6 +2776,7 @@ mod tests {
             Method::Get,
             Route::GetInvite {
                 code: "twilight-rs",
+                guild_scheduled_event_id: None,
                 with_counts: false,
             }
             .method()

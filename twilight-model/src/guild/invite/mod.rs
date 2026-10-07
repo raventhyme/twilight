@@ -12,7 +12,7 @@ pub use self::{
     welcome_screen::{WelcomeScreen, WelcomeScreenChannel},
 };
 
-use crate::{user::User, util::Timestamp};
+use crate::{guild::scheduled_event::GuildScheduledEvent, user::User, util::Timestamp};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -29,6 +29,13 @@ pub struct Invite {
     pub expires_at: Option<Timestamp>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub guild: Option<InviteGuild>,
+    /// Guild scheduled event data, optionally included only when fetching an
+    /// invite over HTTP.
+    ///
+    /// Included if the Get Invite HTTP request's `guild_scheduled_event_id`
+    /// parameter contains a valid guild scheduled event ID.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub guild_scheduled_invite: Option<GuildScheduledEvent>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub inviter: Option<User>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -107,6 +114,7 @@ mod tests {
             created_at: None,
             expires_at: None,
             guild: None,
+            guild_scheduled_invite: None,
             inviter: None,
             max_age: None,
             max_uses: None,
@@ -200,6 +208,7 @@ mod tests {
                     ],
                 }),
             }),
+            guild_scheduled_invite: None,
             inviter: Some(User {
                 accent_color: None,
                 avatar: None,
