@@ -438,9 +438,9 @@ impl<CacheModels: CacheableModels> InMemoryCache<CacheModels> {
 
     /// Gets an emoji by ID.
     ///
-    /// This requires the [`GUILD_EMOJIS_AND_STICKERS`] intent.
+    /// This requires the [`GUILD_EXPRESSIONS`] intent.
     ///
-    /// [`GUILD_EMOJIS_AND_STICKERS`]: ::twilight_model::gateway::Intents::GUILD_EMOJIS_AND_STICKERS
+    /// [`GUILD_EXPRESSIONS`]: ::twilight_model::gateway::Intents::GUILD_EXPRESSIONS
     pub fn emoji(
         &self,
         emoji_id: Id<EmojiMarker>,
@@ -474,11 +474,11 @@ impl<CacheModels: CacheableModels> InMemoryCache<CacheModels> {
 
     /// Gets the set of emojis in a guild.
     ///
-    /// This requires both the [`GUILDS`] and [`GUILD_EMOJIS_AND_STICKERS`]
+    /// This requires both the [`GUILDS`] and [`GUILD_EXPRESSIONS`]
     /// intents.
     ///
     /// [`GUILDS`]: ::twilight_model::gateway::Intents::GUILDS
-    /// [`GUILD_EMOJIS_AND_STICKERS`]: ::twilight_model::gateway::Intents::GUILD_EMOJIS_AND_STICKERS
+    /// [`GUILD_EXPRESSIONS`]: ::twilight_model::gateway::Intents::GUILD_EXPRESSIONS
     pub fn guild_emojis(
         &self,
         guild_id: Id<GuildMarker>,
@@ -570,11 +570,11 @@ impl<CacheModels: CacheableModels> InMemoryCache<CacheModels> {
     /// Gets the set of the stickers in a guild.
     ///
     /// This is an O(m) operation, where m is the amount of stickers in the
-    /// guild. This requires the [`GUILDS`] and [`GUILD_EMOJIS_AND_STICKERS`]
+    /// guild. This requires the [`GUILDS`] and [`GUILD_EXPRESSIONS`]
     /// intents and the [`STICKER`] resource type.
     ///
     /// [`GUILDS`]: twilight_model::gateway::Intents::GUILDS
-    /// [`GUILD_EMOJIS_AND_STICKERS`]: ::twilight_model::gateway::Intents::GUILD_EMOJIS_AND_STICKERS
+    /// [`GUILD_EXPRESSIONS`]: ::twilight_model::gateway::Intents::GUILD_EXPRESSIONS
     /// [`STICKER`]: crate::config::ResourceType::STICKER
     pub fn guild_stickers(
         &self,
@@ -702,10 +702,10 @@ impl<CacheModels: CacheableModels> InMemoryCache<CacheModels> {
     /// Gets a sticker by ID.
     ///
     /// This is the O(1) operation. This requires the [`GUILDS`] and the
-    /// [`GUILD_EMOJIS_AND_STICKERS`] intents and the [`STICKER`] resource type.
+    /// [`GUILD_EXPRESSIONS`] intents and the [`STICKER`] resource type.
     ///
     /// [`GUILDS`]: twilight_model::gateway::Intents::GUILDS
-    /// [`GUILD_EMOJIS_AND_STICKERS`]: ::twilight_model::gateway::Intents::GUILD_EMOJIS_AND_STICKERS
+    /// [`GUILD_EXPRESSIONS`]: ::twilight_model::gateway::Intents::GUILD_EXPRESSIONS
     /// [`STICKER`]: crate::config::ResourceType::STICKER
     pub fn sticker(
         &self,

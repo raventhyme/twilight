@@ -93,7 +93,18 @@ bitflags! {
         ///
         /// [`GUILD_EMOJIS_UPDATE`]: super::event::Event::GuildEmojisUpdate
         /// [`GUILD_STICKERS_UPDATE`]: super::event::Event::GuildStickersUpdate
+        #[deprecated(since = "0.17.2", note = "renamed to GUILD_EXPRESSIONS instead")]
+        #[doc(hidden)]
         const GUILD_EMOJIS_AND_STICKERS = 1 << 3;
+        /// Guild expressions intents.
+        ///
+        /// Event(s) received:
+        ///  - [`GUILD_EMOJIS_UPDATE`]
+        ///  - [`GUILD_STICKERS_UPDATE`]
+        ///
+        /// [`GUILD_EMOJIS_UPDATE`]: super::event::Event::GuildEmojisUpdate
+        /// [`GUILD_STICKERS_UPDATE`]: super::event::Event::GuildStickersUpdate
+        const GUILD_EXPRESSIONS = 1 << 3;
         /// Guild integrations intent.
         ///
         /// Event(s) received:
@@ -345,6 +356,7 @@ mod tests {
     const_assert_eq!(Intents::GUILD_MEMBERS.bits(), 1 << 1);
     const_assert_eq!(Intents::GUILD_MODERATION.bits(), 1 << 2);
     const_assert_eq!(Intents::GUILD_EMOJIS_AND_STICKERS.bits(), 1 << 3);
+    const_assert_eq!(Intents::GUILD_EXPRESSIONS.bits(), 1 << 3);
     const_assert_eq!(Intents::GUILD_INTEGRATIONS.bits(), 1 << 4);
     const_assert_eq!(Intents::GUILD_WEBHOOKS.bits(), 1 << 5);
     const_assert_eq!(Intents::GUILD_INVITES.bits(), 1 << 6);

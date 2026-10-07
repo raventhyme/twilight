@@ -256,8 +256,15 @@ bitflags! {
         /// All [`EventTypeFlags`] in [`Intents::GUILD_EMOJIS_AND_STICKERS`].
         ///
         /// [`Intents::GUILD_EMOJIS_AND_STICKERS`]: crate::Intents::GUILD_EMOJIS_AND_STICKERS
+        #[deprecated(since = "0.17.2", note = "renamed to GUILD_EXPRESSIONS")]
+        #[doc(hidden)]
         const GUILD_EMOJIS_AND_STICKERS = Self::GUILD_EMOJIS_UPDATE.bits()
             | Self::GUILD_STICKERS_UPDATE.bits();
+
+        /// All [`EventTypeFlags`] in [`Intents::GUILD_EXPRESSIONS`].
+        ///
+        /// [`Intents::GUILD_EXPRESSIONS`]: crate::Intents::GUILD_EXPRESSIONS
+        const GUILD_EXPRESSIONS = Self::GUILD_EMOJIS_UPDATE.bits() | Self::GUILD_STICKERS_UPDATE.bits();
 
         /// All [`EventTypeFlags`] in [`Intents::GUILD_INTEGRATIONS`].
         ///
