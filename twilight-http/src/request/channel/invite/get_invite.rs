@@ -14,6 +14,7 @@ use twilight_model::{
 struct GetInviteFields {
     guild_scheduled_event_id: Option<Id<GuildMarker>>,
     with_counts: bool,
+    with_expiration: bool,
 }
 
 /// Get information about an invite by its code.
@@ -51,6 +52,7 @@ impl<'a> GetInvite<'a> {
             fields: GetInviteFields {
                 guild_scheduled_event_id: None,
                 with_counts: false,
+                with_expiration: false,
             },
             http,
         }
@@ -69,6 +71,18 @@ impl<'a> GetInvite<'a> {
     /// Whether the invite returned should contain approximate member counts.
     pub const fn with_counts(mut self) -> Self {
         self.fields.with_counts = true;
+
+        self
+    }
+
+    /// Whether the invite returned should contain its expiration date.
+    #[deprecated(
+        since = "0.17.2",
+        note = "with_expiration parameter is no longer supported by Discord"
+    )]
+    #[doc(hidden)]
+    pub const fn with_expiration(mut self) -> Self {
+        self.fields.with_expiration = true;
 
         self
     }
@@ -91,10 +105,14 @@ impl IntoFuture for GetInvite<'_> {
 
 impl TryIntoRequest for GetInvite<'_> {
     fn try_into_request(self) -> Result<Request, Error> {
-        Ok(Request::from_route(&Route::GetInvite {
+        // When removing the deprecated `GetInviteWithExpiration` variant use
+        // `GetInvite` in its place.
+        #[expect(deprecated)]
+        Ok(Request::from_route(&Route::GetInviteWithExpiration {
             code: self.code,
             guild_scheduled_event_id: self.fields.guild_scheduled_event_id.map(Id::get),
             with_counts: self.fields.with_counts,
+            with_expiration: self.fields.with_expiration,
         }))
     }
 }

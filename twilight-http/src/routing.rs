@@ -758,11 +758,14 @@ pub enum Route<'a> {
     /// Route information to get an invite with an expiration.
     #[deprecated(
         since = "0.17.2",
-        note = "with_expiration parameter is no longer supported, use GetInvite variant"
+        note = "with_expiration parameter is no longer supported by Discord, use GetInvite variant"
     )]
+    #[doc(hidden)]
     GetInviteWithExpiration {
         /// The unique invite code.
         code: &'a str,
+        /// ID of the scheduled guild event to include in the invite.
+        guild_scheduled_event_id: Option<u64>,
         /// Whether to retrieve statistics about the invite.
         with_counts: bool,
         /// Whether to retrieve the expiration date of the invite.
@@ -2488,6 +2491,7 @@ impl Display for Route<'_> {
             }
             Route::GetInviteWithExpiration {
                 code,
+                guild_scheduled_event_id,
                 with_counts,
                 with_expiration,
             } => {
@@ -2504,7 +2508,10 @@ impl Display for Route<'_> {
                     query_formatter.write_param("with_expiration", &true)?;
                 }
 
-                Ok(())
+                query_formatter.write_opt_param(
+                    "guild_scheduled_event_id",
+                    guild_scheduled_event_id.as_ref(),
+                )
             }
             Route::GetMessages {
                 channel_id,
