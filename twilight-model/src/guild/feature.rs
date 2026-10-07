@@ -48,6 +48,11 @@ pub enum GuildFeature {
     /// Can be previewed before joining via membership screening or the directory.
     PreviewEnabled,
     /// Has access to create private threads.
+    #[deprecated(
+        since = "0.17.2",
+        note = "Discord no longer supports the Private Threads guild feature"
+    )]
+    #[doc(hidden)]
     PrivateThreads,
     /// Guild has enabled requiring admin to prune members.
     ///
