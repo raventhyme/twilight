@@ -19,8 +19,8 @@ pub trait AuditLogReason<'a>: private::Sealed {
 mod private {
     use crate::request::{
         channel::{
-            CreatePin, DeleteChannel, DeleteChannelPermissionConfigured, DeletePin, UpdateChannel,
-            UpdateChannelPermission,
+            CreatePin, DeleteChannel, DeleteChannelPermissionConfigured, DeletePin,
+            SetVoiceChannelStatus, UpdateChannel, UpdateChannelPermission,
             invite::{CreateInvite, DeleteInvite},
             message::{DeleteMessage, DeleteMessages},
             thread::UpdateThread,
@@ -81,6 +81,7 @@ mod private {
     impl Sealed for DeleteWebhookMessage<'_> {}
     impl Sealed for RemoveMember<'_> {}
     impl Sealed for RemoveRoleFromMember<'_> {}
+    impl Sealed for SetVoiceChannelStatus<'_> {}
     impl Sealed for UpdateAutoModerationRule<'_> {}
     impl Sealed for UpdateChannel<'_> {}
     impl Sealed for UpdateChannelPermission<'_> {}
@@ -105,8 +106,8 @@ mod tests {
     use super::AuditLogReason;
     use crate::request::{
         channel::{
-            CreatePin, DeleteChannel, DeleteChannelPermissionConfigured, DeletePin, UpdateChannel,
-            UpdateChannelPermission,
+            CreatePin, DeleteChannel, DeleteChannelPermissionConfigured, DeletePin,
+            SetVoiceChannelStatus, UpdateChannel, UpdateChannelPermission,
             invite::{CreateInvite, DeleteInvite},
             message::{DeleteMessage, DeleteMessages},
             webhook::{CreateWebhook, DeleteWebhook, UpdateWebhook},
@@ -149,6 +150,7 @@ mod tests {
     assert_impl_all!(DeleteWebhook<'_>: AuditLogReason<'static>);
     assert_impl_all!(RemoveMember<'_>: AuditLogReason<'static>);
     assert_impl_all!(RemoveRoleFromMember<'_>: AuditLogReason<'static>);
+    assert_impl_all!(SetVoiceChannelStatus<'_>: AuditLogReason<'static>);
     assert_impl_all!(UpdateChannel<'_>: AuditLogReason<'static>);
     assert_impl_all!(UpdateChannelPermission<'_>: AuditLogReason<'static>);
     assert_impl_all!(UpdateCurrentMember<'_>: AuditLogReason<'static>);

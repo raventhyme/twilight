@@ -39,6 +39,9 @@ pub const CHANNEL_TOPIC_LENGTH_MAX: usize = 1024;
 /// Maximum user limit of an audio channel.
 pub const CHANNEL_USER_LIMIT_MAX: u16 = 99;
 
+/// Maximum length of a channel's voice status.
+pub const CHANNEL_VOICE_STATUS_LENGTH_MAX: usize = 500;
+
 /// Returned when the channel can not be updated as configured.
 #[derive(Debug)]
 pub struct ChannelValidationError {
@@ -113,6 +116,11 @@ impl Display for ChannelValidationError {
 
                 Display::fmt(&CHANNEL_USER_LIMIT_MAX, f)
             }
+            ChannelValidationErrorType::VoiceChannelStatusInvalid => {
+                f.write_str("voice channel status length is greater than ")?;
+
+                Display::fmt(&CHANNEL_VOICE_STATUS_LENGTH_MAX, f)
+            }
         }
     }
 }
@@ -148,6 +156,8 @@ pub enum ChannelValidationErrorType {
     },
     /// User limit is greater than 99.
     UserLimitInvalid,
+    /// Voice channel status is invalid.
+    VoiceChannelStatusInvalid,
 }
 
 /// Ensure a channel's bitrate is collect.
@@ -336,6 +346,26 @@ pub const fn user_limit(value: u16) -> Result<(), ChannelValidationError> {
             kind: ChannelValidationErrorType::UserLimitInvalid,
         })
     }
+}
+
+/// Ensure a channel's voice status's length is correct.
+///
+/// # Errors
+///
+/// Returns an error of type [`VoiceChannelStatusInvalid`] if the
+/// topic is invalid.
+///
+/// [`VoiceChannelStatusInvalid`]: ChannelValidationErrorType::VoiceChannelStatusInvalid
+pub fn voice_channel_status(value: impl AsRef<str>) -> Result<(), ChannelValidationError> {
+    let count = value.as_ref().chars().count();
+
+    if count > CHANNEL_VOICE_STATUS_LENGTH_MAX {
+        return Err(ChannelValidationError {
+            kind: ChannelValidationErrorType::VoiceChannelStatusInvalid,
+        });
+    }
+
+    Ok(())
 }
 
 #[cfg(test)]

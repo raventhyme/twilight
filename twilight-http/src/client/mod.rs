@@ -15,6 +15,7 @@ use crate::request::{
             GetEntitlements, GetSKUs,
         },
     },
+    channel::SetVoiceChannelStatus,
     guild::user::{GetCurrentUserVoiceState, GetUserVoiceState},
 };
 #[allow(deprecated)]
@@ -564,6 +565,22 @@ impl Client {
     /// Update a channel.
     pub const fn update_channel(&self, channel_id: Id<ChannelMarker>) -> UpdateChannel<'_> {
         UpdateChannel::new(self, channel_id)
+    }
+
+    /// Set the voice status of a voice channel.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error of type [`ChannelValidationErrorType::VoiceChannelStatusInvalid`] if
+    /// the length of the voice channel status is greater than 500 characters.
+    ///
+    /// [`ChannelValidationErrorType::VoiceChannelStatusInvalid`]: twilight_validate::channel::ChannelValidationErrorType::VoiceChannelStatusInvalid
+    pub fn set_voice_channel_status<'a>(
+        &'a self,
+        channel_id: Id<ChannelMarker>,
+        status: &'a str,
+    ) -> SetVoiceChannelStatus<'a> {
+        SetVoiceChannelStatus::new(self, channel_id, status)
     }
 
     /// Follows a news channel by [`Id<ChannelMarker>`].

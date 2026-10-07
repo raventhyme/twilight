@@ -1007,6 +1007,11 @@ pub enum Route<'a> {
         /// The ID of the guild.
         guild_id: u64,
     },
+    /// Set a voice channel's status.
+    SetVoiceChannelStatus {
+        /// ID of the voice channel.
+        channel_id: u64,
+    },
     /// Route information to sync a guild's integration.
     SyncGuildIntegration {
         /// The ID of the guild.
@@ -1418,6 +1423,7 @@ impl Route<'_> {
             | Self::PinMessage { .. }
             | Self::SetGlobalCommands { .. }
             | Self::SetGuildCommands { .. }
+            | Self::SetVoiceChannelStatus { .. }
             | Self::SyncTemplate { .. }
             | Self::UpdateCommandPermissions { .. }
             | Self::UpdateGuildOnboarding { .. }
@@ -2673,6 +2679,12 @@ impl Display for Route<'_> {
                 query_formatter
                     .write_param("query", &utf8_percent_encode(query, NON_ALPHANUMERIC))?;
                 query_formatter.write_opt_param("limit", limit.as_ref())
+            }
+            Route::SetVoiceChannelStatus { channel_id } => {
+                f.write_str("channels/")?;
+                Display::fmt(channel_id, f)?;
+
+                f.write_str("/voice-status")
             }
             Route::SyncGuildIntegration {
                 guild_id,

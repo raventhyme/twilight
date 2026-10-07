@@ -32,7 +32,7 @@ mod private {
         channel::{
             CreatePin, CreateTypingTrigger, DeleteChannel, DeleteChannelPermission,
             DeleteChannelPermissionConfigured, DeletePin, FollowNewsChannel, GetChannel, GetPins,
-            UpdateChannel, UpdateChannelPermission,
+            SetVoiceChannelStatus, UpdateChannel, UpdateChannelPermission,
             invite::{CreateInvite, DeleteInvite, GetChannelInvites, GetInvite},
             message::{
                 CreateMessage, CrosspostMessage, DeleteMessage, DeleteMessages, GetChannelMessages,
@@ -268,6 +268,7 @@ mod private {
     impl Sealed for SearchGuildMembers<'_> {}
     impl Sealed for SetGlobalCommands<'_> {}
     impl Sealed for SetGuildCommands<'_> {}
+    impl Sealed for SetVoiceChannelStatus<'_> {}
     impl Sealed for SyncTemplate<'_> {}
     impl Sealed for UpdateAutoModerationRule<'_> {}
     impl Sealed for UpdateChannel<'_> {}
