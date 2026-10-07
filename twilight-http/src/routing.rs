@@ -1102,6 +1102,8 @@ pub enum Route<'a> {
         integration_id: u64,
     },
     /// Route information to update a guild's MFA level.
+    #[deprecated(since = "0.17.2", note = "endpoint no longer supported by Discord")]
+    #[doc(hidden)]
     UpdateGuildMfa {
         /// ID of the guild.
         guild_id: u64,
@@ -4511,6 +4513,7 @@ mod tests {
 
     #[test]
     fn update_guild_mfa() {
+        #[expect(deprecated)]
         let route = Route::UpdateGuildMfa { guild_id: GUILD_ID };
         assert_eq!(route.to_string(), format!("guilds/{GUILD_ID}/mfa"));
     }

@@ -42,6 +42,9 @@ pub use self::{
     get_guild_welcome_screen::GetGuildWelcomeScreen, get_guild_widget::GetGuildWidget,
     get_guild_widget_settings::GetGuildWidgetSettings, update_current_member::UpdateCurrentMember,
     update_guild::UpdateGuild, update_guild_channel_positions::UpdateGuildChannelPositions,
-    update_guild_mfa::UpdateGuildMfa, update_guild_welcome_screen::UpdateGuildWelcomeScreen,
+    update_guild_welcome_screen::UpdateGuildWelcomeScreen,
     update_guild_widget_settings::UpdateGuildWidgetSettings,
 };
+
+#[expect(deprecated)]
+pub use self::update_guild_mfa::UpdateGuildMfa;

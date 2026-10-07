@@ -1063,6 +1063,9 @@ impl Client {
     }
 
     /// Update a guild's MFA level.
+    #[deprecated(since = "0.17.2", note = "endpoint no longer supported by Discord")]
+    #[doc(hidden)]
+    #[expect(deprecated)]
     pub const fn update_guild_mfa(
         &self,
         guild_id: Id<GuildMarker>,

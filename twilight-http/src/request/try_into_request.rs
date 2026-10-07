@@ -62,7 +62,7 @@ mod private {
             GetGuild, GetGuildChannels, GetGuildInvites, GetGuildOnboarding, GetGuildPreview,
             GetGuildPruneCount, GetGuildVanityUrl, GetGuildVoiceRegions, GetGuildWebhooks,
             GetGuildWelcomeScreen, GetGuildWidget, GetGuildWidgetSettings, UpdateCurrentMember,
-            UpdateGuild, UpdateGuildChannelPositions, UpdateGuildMfa, UpdateGuildWelcomeScreen,
+            UpdateGuild, UpdateGuildChannelPositions, UpdateGuildWelcomeScreen,
             UpdateGuildWidgetSettings,
             auto_moderation::{
                 CreateAutoModerationRule, DeleteAutoModerationRule, GetAutoModerationRule,
@@ -283,7 +283,8 @@ mod private {
     impl Sealed for UpdateGuildChannelPositions<'_> {}
     impl Sealed for UpdateGuildCommand<'_> {}
     impl Sealed for UpdateGuildMember<'_> {}
-    impl Sealed for UpdateGuildMfa<'_> {}
+    #[expect(deprecated)]
+    impl Sealed for crate::request::guild::UpdateGuildMfa<'_> {}
     impl Sealed for UpdateGuildOnboarding<'_> {}
     impl Sealed for UpdateGuildScheduledEvent<'_> {}
     impl Sealed for UpdateGuildSticker<'_> {}

@@ -27,7 +27,7 @@ mod private {
             webhook::{CreateWebhook, DeleteWebhook, DeleteWebhookMessage, UpdateWebhook},
         },
         guild::{
-            CreateGuildChannel, CreateGuildPrune, UpdateCurrentMember, UpdateGuild, UpdateGuildMfa,
+            CreateGuildChannel, CreateGuildPrune, UpdateCurrentMember, UpdateGuild,
             UpdateGuildWidgetSettings,
             auto_moderation::{
                 CreateAutoModerationRule, DeleteAutoModerationRule, UpdateAutoModerationRule,
@@ -89,7 +89,8 @@ mod private {
     impl Sealed for UpdateEmoji<'_> {}
     impl Sealed for UpdateGuild<'_> {}
     impl Sealed for UpdateGuildMember<'_> {}
-    impl Sealed for UpdateGuildMfa<'_> {}
+    #[expect(deprecated)]
+    impl Sealed for crate::request::guild::UpdateGuildMfa<'_> {}
     impl Sealed for UpdateGuildOnboarding<'_> {}
     impl Sealed for UpdateGuildScheduledEvent<'_> {}
     impl Sealed for UpdateGuildSticker<'_> {}

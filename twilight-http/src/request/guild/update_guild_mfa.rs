@@ -19,6 +19,8 @@ struct UpdateGuildMfaFields {
 }
 
 /// Update a guild's MFA level.
+#[deprecated(since = "0.17.2", note = "endpoint no longer supported by Discord")]
+#[doc(hidden)]
 #[must_use = "requests must be configured and executed"]
 pub struct UpdateGuildMfa<'a> {
     fields: UpdateGuildMfaFields,
@@ -27,6 +29,7 @@ pub struct UpdateGuildMfa<'a> {
     reason: Result<Option<&'a str>, ValidationError>,
 }
 
+#[expect(deprecated)]
 impl<'a> UpdateGuildMfa<'a> {
     pub(crate) const fn new(http: &'a Client, guild_id: Id<GuildMarker>, level: MfaLevel) -> Self {
         Self {
@@ -38,6 +41,7 @@ impl<'a> UpdateGuildMfa<'a> {
     }
 }
 
+#[expect(deprecated)]
 impl IntoFuture for UpdateGuildMfa<'_> {
     type Output = Result<Response<MfaLevel>, Error>;
 
@@ -53,6 +57,7 @@ impl IntoFuture for UpdateGuildMfa<'_> {
     }
 }
 
+#[expect(deprecated)]
 impl<'a> AuditLogReason<'a> for UpdateGuildMfa<'a> {
     fn reason(mut self, reason: &'a str) -> Self {
         self.reason = validate_audit_reason(reason).and(Ok(Some(reason)));
@@ -61,6 +66,7 @@ impl<'a> AuditLogReason<'a> for UpdateGuildMfa<'a> {
     }
 }
 
+#[expect(deprecated)]
 impl TryIntoRequest for UpdateGuildMfa<'_> {
     fn try_into_request(self) -> Result<Request, Error> {
         let mut request = Request::builder(&Route::UpdateGuildMfa {
