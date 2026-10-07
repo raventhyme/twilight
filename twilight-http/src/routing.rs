@@ -750,6 +750,7 @@ pub enum Route<'a> {
     GetInvite {
         /// The unique invite code.
         code: &'a str,
+        /// ID of the scheduled guild event to include in the invite.
         guild_scheduled_event_id: Option<u64>,
         /// Whether to retrieve statistics about the invite.
         with_counts: bool,
