@@ -17,8 +17,8 @@ mod private {
                 },
             },
             emoji::{
-                AddApplicationEmoji, DeleteApplicationEmoji, ListApplicationEmojis,
-                UpdateApplicationEmoji,
+                AddApplicationEmoji, DeleteApplicationEmoji, GetApplicationEmoji,
+                ListApplicationEmojis, UpdateApplicationEmoji,
             },
             interaction::{
                 CreateFollowup, CreateResponse, CreateResponseWithResponse, DeleteFollowup,
@@ -186,6 +186,7 @@ mod private {
     impl Sealed for GetActiveThreads<'_> {}
     impl Sealed for ListApplicationEmojis<'_> {}
     impl Sealed for GetAnswerVoters<'_> {}
+    impl Sealed for GetApplicationEmoji<'_> {}
     impl Sealed for GetAuditLog<'_> {}
     impl Sealed for GetAutoModerationRule<'_> {}
     impl Sealed for GetBan<'_> {}

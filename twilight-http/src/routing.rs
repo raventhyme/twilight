@@ -418,6 +418,11 @@ pub enum Route<'a> {
         /// The message ID of the poll.
         message_id: u64,
     },
+    /// Route information for getting an application emoji.
+    GetApplicationEmoji {
+        application_id: u64,
+        emoji_id: u64,
+    },
     /// Route information to get a paginated list of audit logs in a guild.
     GetAuditLogs {
         /// The type of action to get audit logs for.
@@ -1273,6 +1278,7 @@ impl Route<'_> {
             Self::GetActiveThreads { .. }
             | Self::GetApplicationEmojis { .. }
             | Self::GetAnswerVoters { .. }
+            | Self::GetApplicationEmoji { .. }
             | Self::GetAuditLogs { .. }
             | Self::GetAutoModerationRule { .. }
             | Self::GetBan { .. }
@@ -2156,6 +2162,10 @@ impl Display for Route<'_> {
                 f.write_str("/threads/active")
             }
             Route::DeleteApplicationEmoji {
+                application_id,
+                emoji_id,
+            }
+            | Route::GetApplicationEmoji {
                 application_id,
                 emoji_id,
             }
@@ -4583,6 +4593,19 @@ mod tests {
         assert_eq!(
             route.to_string(),
             format!("applications/{APPLICATION_ID}/skus")
+        );
+    }
+
+    #[test]
+    fn get_application_emoji() {
+        let route = Route::GetApplicationEmoji {
+            application_id: APPLICATION_ID,
+            emoji_id: EMOJI_ID,
+        };
+        assert_eq!(Method::Get, route.method());
+        assert_eq!(
+            route.to_string(),
+            format!("applications/{APPLICATION_ID}/emojis/{EMOJI_ID}")
         );
     }
 }

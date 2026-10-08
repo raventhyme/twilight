@@ -7,8 +7,8 @@ pub use self::{builder::ClientBuilder, interaction::InteractionClient};
 use crate::request::{
     application::{
         emoji::{
-            AddApplicationEmoji, DeleteApplicationEmoji, ListApplicationEmojis,
-            UpdateApplicationEmoji,
+            AddApplicationEmoji, DeleteApplicationEmoji, GetApplicationEmoji,
+            ListApplicationEmojis, UpdateApplicationEmoji,
         },
         monetization::{
             CreateTestEntitlement, CreateTestEntitlementOwner, DeleteTestEntitlement,
@@ -2785,6 +2785,19 @@ impl Client {
         application_id: Id<ApplicationMarker>,
     ) -> ListApplicationEmojis<'_> {
         ListApplicationEmojis::new(self, application_id)
+    }
+
+    /// Get an emoji associated with an application.
+    ///
+    /// The [`Emoji::user`] field is included in the emoji.
+    ///
+    /// [`Emoji::user`]: ::twilight_model::guild::Emoji::user
+    pub const fn application_emoji(
+        &self,
+        application_id: Id<ApplicationMarker>,
+        emoji_id: Id<EmojiMarker>,
+    ) -> GetApplicationEmoji<'_> {
+        GetApplicationEmoji::new(self, application_id, emoji_id)
     }
 
     /// Adds an emoji to an application
