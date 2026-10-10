@@ -32,7 +32,7 @@ mod private {
             auto_moderation::{
                 CreateAutoModerationRule, DeleteAutoModerationRule, UpdateAutoModerationRule,
             },
-            ban::{CreateBan, DeleteBan},
+            ban::{BulkGuildBan, CreateBan, DeleteBan},
             emoji::{CreateEmoji, DeleteEmoji, UpdateEmoji},
             integration::DeleteGuildIntegration,
             member::{AddRoleToMember, RemoveMember, RemoveRoleFromMember, UpdateGuildMember},
@@ -52,6 +52,7 @@ mod private {
     pub trait Sealed {}
 
     impl Sealed for AddRoleToMember<'_> {}
+    impl Sealed for BulkGuildBan<'_> {}
     impl Sealed for CreateAutoModerationRule<'_> {}
     impl Sealed for CreateBan<'_> {}
     impl Sealed for CreateEmoji<'_> {}
@@ -113,7 +114,7 @@ mod tests {
         },
         guild::{
             CreateGuildChannel, CreateGuildPrune, UpdateCurrentMember, UpdateGuild,
-            ban::{CreateBan, DeleteBan},
+            ban::{BulkGuildBan, CreateBan, DeleteBan},
             emoji::{CreateEmoji, DeleteEmoji, UpdateEmoji},
             integration::DeleteGuildIntegration,
             member::{AddRoleToMember, RemoveMember, RemoveRoleFromMember, UpdateGuildMember},
@@ -127,6 +128,7 @@ mod tests {
     assert_obj_safe!(AuditLogReason<'_>);
 
     assert_impl_all!(AddRoleToMember<'_>: AuditLogReason<'static>);
+    assert_impl_all!(BulkGuildBan<'_>: AuditLogReason<'static>);
     assert_impl_all!(CreateBan<'_>: AuditLogReason<'static>);
     assert_impl_all!(CreateEmoji<'_>: AuditLogReason<'static>);
     assert_impl_all!(CreateGuildChannel<'_>: AuditLogReason<'static>);

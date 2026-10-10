@@ -39,6 +39,10 @@ pub enum Route<'a> {
         /// ID of the member.
         user_id: u64,
     },
+    /// Route information to ban users from a guild in bulk.
+    BulkGuildBan {
+        guild_id: u64,
+    },
     /// Route information to create an auto moderation rule.
     CreateAutoModerationRule {
         /// ID of the guild.
@@ -1380,6 +1384,7 @@ impl Route<'_> {
             | Self::UpdateWebhook { .. } => Method::Patch,
             Self::CreateChannel { .. }
             | Self::AddApplicationEmoji { .. }
+            | Self::BulkGuildBan { .. }
             | Self::CreateGlobalCommand { .. }
             | Self::CreateGuildCommand { .. }
             | Self::CreateEmoji { .. }
@@ -1514,6 +1519,12 @@ impl Display for Route<'_> {
                 f.write_str("/thread-members/")?;
 
                 Display::fmt(user_id, f)
+            }
+            Route::BulkGuildBan { guild_id } => {
+                f.write_str("guilds/")?;
+                Display::fmt(guild_id, f)?;
+
+                f.write_str("/bulk-ban")
             }
             Route::CreateAutoModerationRule { guild_id, .. }
             | Route::GetGuildAutoModerationRules { guild_id, .. } => {

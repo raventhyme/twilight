@@ -68,7 +68,7 @@ mod private {
                 CreateAutoModerationRule, DeleteAutoModerationRule, GetAutoModerationRule,
                 GetGuildAutoModerationRules, UpdateAutoModerationRule,
             },
-            ban::{CreateBan, DeleteBan, GetBan, GetBans},
+            ban::{BulkGuildBan, CreateBan, DeleteBan, GetBan, GetBans},
             emoji::{CreateEmoji, DeleteEmoji, GetEmoji, GetEmojis, UpdateEmoji},
             integration::{DeleteGuildIntegration, GetGuildIntegrations},
             member::{
@@ -114,6 +114,7 @@ mod private {
     impl Sealed for AddGuildMember<'_> {}
     impl Sealed for AddRoleToMember<'_> {}
     impl Sealed for AddThreadMember<'_> {}
+    impl Sealed for BulkGuildBan<'_> {}
     impl Sealed for CreateAutoModerationRule<'_> {}
     impl Sealed for CreateBan<'_> {}
     impl Sealed for CreateEmoji<'_> {}
