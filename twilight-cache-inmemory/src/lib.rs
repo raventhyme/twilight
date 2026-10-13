@@ -1043,6 +1043,7 @@ impl<CacheModels: CacheableModels> UpdateCache<CacheModels> for Event {
             | Event::ThreadMembersUpdate(_)
             | Event::ThreadMemberUpdate(_)
             | Event::TypingStart(_)
+            | Event::VoiceChannelStartTimeUpdate(_)
             | Event::VoiceServerUpdate(_)
             | Event::WebhooksUpdate(_) => {}
         }

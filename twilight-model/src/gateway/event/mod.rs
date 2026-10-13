@@ -176,6 +176,8 @@ pub enum Event {
     UnavailableGuild(UnavailableGuild),
     /// The current user was updated.
     UserUpdate(UserUpdate),
+    /// Sent when the voice channel start time changes.
+    VoiceChannelStartTimeUpdate(VoiceChannelStartTimeUpdate),
     /// A voice server update was sent.
     VoiceServerUpdate(VoiceServerUpdate),
     /// A voice state in a voice channel was updated.
@@ -250,6 +252,7 @@ impl Event {
             Event::ThreadUpdate(e) => e.0.guild_id,
             Event::TypingStart(e) => e.guild_id,
             Event::UnavailableGuild(e) => Some(e.id),
+            Event::VoiceChannelStartTimeUpdate(e) => Some(e.guild_id),
             Event::VoiceServerUpdate(e) => Some(e.guild_id),
             Event::VoiceStateUpdate(e) => e.0.guild_id,
             Event::WebhooksUpdate(e) => Some(e.guild_id),
@@ -341,6 +344,7 @@ impl Event {
             Self::TypingStart(_) => EventType::TypingStart,
             Self::UnavailableGuild(_) => EventType::UnavailableGuild,
             Self::UserUpdate(_) => EventType::UserUpdate,
+            Self::VoiceChannelStartTimeUpdate(_) => EventType::VoiceChannelStartTimeUpdate,
             Self::VoiceServerUpdate(_) => EventType::VoiceServerUpdate,
             Self::VoiceStateUpdate(_) => EventType::VoiceStateUpdate,
             Self::WebhooksUpdate(_) => EventType::WebhooksUpdate,
@@ -420,6 +424,7 @@ impl From<DispatchEvent> for Event {
             DispatchEvent::TypingStart(v) => Self::TypingStart(v),
             DispatchEvent::UnavailableGuild(v) => Self::UnavailableGuild(v),
             DispatchEvent::UserUpdate(v) => Self::UserUpdate(v),
+            DispatchEvent::VoiceChannelStartTimeUpdate(v) => Self::VoiceChannelStartTimeUpdate(v),
             DispatchEvent::VoiceServerUpdate(v) => Self::VoiceServerUpdate(v),
             DispatchEvent::VoiceStateUpdate(v) => Self::VoiceStateUpdate(v),
             DispatchEvent::WebhooksUpdate(v) => Self::WebhooksUpdate(v),
@@ -557,6 +562,7 @@ mod tests {
     const_assert!(mem::size_of::<ThreadMembersUpdate>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<UnavailableGuild>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<UserUpdate>() <= EVENT_THRESHOLD);
+    const_assert!(mem::size_of::<VoiceChannelStartTimeUpdate>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<VoiceServerUpdate>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<WebhooksUpdate>() <= EVENT_THRESHOLD);
     const_assert!(mem::size_of::<MessagePollVoteAdd>() <= EVENT_THRESHOLD);

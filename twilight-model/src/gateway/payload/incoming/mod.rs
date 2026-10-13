@@ -77,6 +77,7 @@ mod thread_update;
 mod typing_start;
 mod unavailable_guild;
 mod user_update;
+mod voice_channel_start_time_update;
 mod voice_server_update;
 mod voice_state_update;
 mod webhooks_update;
@@ -114,6 +115,7 @@ pub use self::{
     thread_create::ThreadCreate, thread_delete::ThreadDelete, thread_list_sync::ThreadListSync,
     thread_member_update::ThreadMemberUpdate, thread_members_update::ThreadMembersUpdate,
     thread_update::ThreadUpdate, typing_start::TypingStart, unavailable_guild::UnavailableGuild,
-    user_update::UserUpdate, voice_server_update::VoiceServerUpdate,
-    voice_state_update::VoiceStateUpdate, webhooks_update::WebhooksUpdate,
+    user_update::UserUpdate, voice_channel_start_time_update::VoiceChannelStartTimeUpdate,
+    voice_server_update::VoiceServerUpdate, voice_state_update::VoiceStateUpdate,
+    webhooks_update::WebhooksUpdate,
 };

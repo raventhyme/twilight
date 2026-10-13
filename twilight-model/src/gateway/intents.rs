@@ -37,6 +37,7 @@ bitflags! {
         ///  - [`STAGE_INSTANCE_CREATE`]
         ///  - [`STAGE_INSTANCE_UPDATE`]
         ///  - [`STAGE_INSTANCE_DELETE`]
+        ///  - [`VOICE_CHANNEL_START_TIME_UPDATE`]
         ///
         /// [`GUILD_CREATE`]: super::event::Event::GuildCreate
         /// [`GUILD_UPDATE`]: super::event::Event::GuildUpdate
@@ -57,6 +58,7 @@ bitflags! {
         /// [`STAGE_INSTANCE_CREATE`]: super::event::Event::StageInstanceCreate
         /// [`STAGE_INSTANCE_UPDATE`]: super::event::Event::StageInstanceUpdate
         /// [`STAGE_INSTANCE_DELETE`]: super::event::Event::StageInstanceDelete
+        /// [`VOICE_CHANNEL_START_TIME_UPDATE`]: super::event::Event::VoiceChannelStartTimeUpdate
         const GUILDS = 1;
         /// Guild members intent.
         ///

@@ -198,6 +198,8 @@ bitflags! {
         /// The shard encountered a gateway rate limit for an event, e.g.
         /// request guild members.
         const RATE_LIMITED = 1 << 79;
+        /// Sent when the voice channel start time changes.
+        const VOICE_CHANNEL_START_TIME_UPDATE = 1 << 81;
 
         /// All [`EventTypeFlags`] in [`Intents::AUTO_MODERATION_CONFIGURATION`].
         ///
@@ -248,7 +250,8 @@ bitflags! {
             | Self::THREAD_DELETE.bits()
             | Self::THREAD_LIST_SYNC.bits()
             | Self::THREAD_MEMBER_UPDATE.bits()
-            | Self::THREAD_MEMBERS_UPDATE.bits();
+            | Self::THREAD_MEMBERS_UPDATE.bits()
+            | Self::VOICE_CHANNEL_START_TIME_UPDATE.bits();
         /// All [`EventTypeFlags`] in [`Intents::GUILD_MODERATION`].
         ///
         /// [`Intents::GUILD_MODERATION`]: crate::Intents::GUILD_MODERATION
@@ -409,6 +412,7 @@ impl From<EventType> for EventTypeFlags {
             EventType::TypingStart => Self::TYPING_START,
             EventType::UnavailableGuild => Self::UNAVAILABLE_GUILD,
             EventType::UserUpdate => Self::USER_UPDATE,
+            EventType::VoiceChannelStartTimeUpdate => Self::VOICE_CHANNEL_START_TIME_UPDATE,
             EventType::VoiceServerUpdate => Self::VOICE_SERVER_UPDATE,
             EventType::VoiceStateUpdate => Self::VOICE_STATE_UPDATE,
             EventType::WebhooksUpdate => Self::WEBHOOKS_UPDATE,
